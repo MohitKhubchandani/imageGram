@@ -4,6 +4,8 @@ import apiRouter from './src/routes/apiRouter.js'
 import multer from 'multer';
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded());
 const PORT = process.env.PORT || 5000;
 
 const upload = multer();

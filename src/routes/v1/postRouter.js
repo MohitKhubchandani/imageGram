@@ -13,4 +13,6 @@ router.delete('/:id', deletePost);
 
 router.put('/:id',  upload.single('image'), updatePost);
 
+
+
 export default router;

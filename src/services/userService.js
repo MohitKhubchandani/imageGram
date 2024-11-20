@@ -1,5 +1,7 @@
-import { createUser } from "../repositories/userRepository.js";
-
+import { createUser, findUserByEmail } from "../repositories/userRepository.js";
+import bcrypt from "bcrypt";
+import { generateJwtToken } from "../utils/jwt.js";
+ 
 export const signUpUserService = async (user) => {
     try{const newUser = createUser(user);
     return newUser
@@ -13,3 +15,36 @@ export const signUpUserService = async (user) => {
     throw error
     }
 } 
+
+export const signInUserService = async (userDetails) => {
+    try {
+        const user = await findUserByEmail(userDetails.email);
+
+        if (!user) {
+            throw{
+            status: 404,
+            message: "User not found"
+        }
+    };
+
+    const isPasswordValid = bcrypt.compareSync(userDetails.password, user.password);
+
+    if (!isPasswordValid) {
+        throw{
+            status: 401,
+            message: "Invalid Password"
+        }
+    };
+
+    const token = generateJwtToken({
+        email: user.email,
+        id: user.id,
+        username: user.username
+    })
+
+    return token;
+
+    } catch (error) {
+        throw error
+    }
+}

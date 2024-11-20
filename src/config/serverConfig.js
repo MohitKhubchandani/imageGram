@@ -10,4 +10,6 @@ export const api_key = process.env.API_KEY
 
 export const api_secret = process.env.API_SECRET
 
+export const JWT_SECRET = process.env.JWT_SECRET
+
 

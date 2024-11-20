@@ -47,4 +47,13 @@ export const signInUserService = async (userDetails) => {
     } catch (error) {
         throw error
     }
+};
+
+export const checkIfUserExist = async(email) => {
+    try {
+        const user = await findUserByEmail(email);
+        return user;
+    } catch (error) {
+        throw error;
+    }
 }

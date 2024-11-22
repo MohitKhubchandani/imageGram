@@ -1,7 +1,7 @@
 // services/postServices.js
 import { countAllPosts, createPost as createPostRepository, deletePostById, findAllPosts, UpdatePostById } from '../repositories/postRepository.js'; // Repository function for database interaction
 
-export const createPost = async ({ caption, image }) => {
+export const createPost = async ({ caption, image, user }) => {
   try {
     const trimmedCaption = caption?.trim();
     if (!trimmedCaption || !image) {
@@ -9,7 +9,7 @@ export const createPost = async ({ caption, image }) => {
     }
 
     // Call repository to save post data in the database
-    const post = await createPostRepository(trimmedCaption, image);
+    const post = await createPostRepository(trimmedCaption, image, user);
 
     return post;
   } catch (err) {

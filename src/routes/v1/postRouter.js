@@ -2,10 +2,11 @@
 import express from 'express';
 import upload from '../../config/multerConfig.js'; // Handles file upload
 import { createPostController, deletePost, getAllPosts, updatePost } from '../../controllers/postControllers.js'; // Controller function
+import { isAuthenticated } from '../../middleware/authMiddleware.js';
 const router = express.Router();
 
 // Route for creating a post, with file upload
-router.post('/', upload.single('image'), createPostController);
+router.post('/',isAuthenticated, upload.single('image'), createPostController);
 
 router.get('/', getAllPosts);
 

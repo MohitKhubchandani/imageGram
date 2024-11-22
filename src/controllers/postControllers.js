@@ -6,11 +6,15 @@ import Post from '../schema/post.js';
 
 export const createPostController = async (req, res) => {
   try {
+    const userDetails = req.user;
+    console.log(userDetails);
+    
     const result = await cloudinary.uploader.upload(req.file.path);
     // Call service function to create a post
     const post = await createPost({
       caption: req.body.caption, 
-      image: result.secure_url
+      image: result.secure_url, 
+      user: userDetails.id
     });
 
     return res.status(201).json({

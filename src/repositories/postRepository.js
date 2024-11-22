@@ -1,9 +1,10 @@
 import Post from '../schema/post.js'; // Mongoose model for the post schema
 
-export const createPost = async (caption, image) => {
+export const createPost = async (caption, image, user) => {
   const post = new Post({
     caption,
-    image
+    image,
+    user
   });
 
   // Save post data to the database

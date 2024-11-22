@@ -6,7 +6,8 @@ export const createPost = async (caption, image, user) => {
     image,
     user
   });
-
+  console.log(post);
+  
   // Save post data to the database
   return await post.save();
 };
@@ -16,7 +17,7 @@ export const findAllPosts = async (offset, limit) => {
     const posts = await Post.find()
       .sort({ createdAt: -1 })
       .skip(offset * limit)
-      .limit(limit);
+      .limit(limit).populate('user', 'username password _id');
     return posts;
   } catch (error) {
     console.error('Error fetching posts:', error);

@@ -1,5 +1,6 @@
 // services/postServices.js
-import { countAllPosts, createPost as createPostRepository, deletePostById, findAllPosts, UpdatePostById } from '../repositories/postRepository.js'; // Repository function for database interaction
+import { countAllPosts, createPost as createPostRepository, deletePostById, findAllPosts, findPostById, UpdatePostById } from '../repositories/postRepository.js'; // Repository function for database interaction
+import user from '../schema/user.js';
 
 export const createPost = async ({ caption, image, user }) => {
   try {
@@ -32,7 +33,14 @@ export const getAllPostsService = async (offset, limit) => {
   }
 };
 
-export const deletePostService = async (id) => {
+export const deletePostService = async (id, user) => {
+  const post = await findPostById(id)
+  if (post.user !== user) {
+    throw{
+      status: 401,
+      message: "Unauthorized"
+    }
+  };
   const response = await deletePostById(id);
   return response;
 }

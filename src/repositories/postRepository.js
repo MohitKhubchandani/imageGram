@@ -17,7 +17,7 @@ export const findAllPosts = async (offset, limit) => {
     const posts = await Post.find()
       .sort({ createdAt: -1 })
       .skip(offset * limit)
-      .limit(limit).populate('user', 'username password _id');
+      .limit(limit).populate('user')
     return posts;
   } catch (error) {
     console.error('Error fetching posts:', error);

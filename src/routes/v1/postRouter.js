@@ -2,7 +2,7 @@
 import express from 'express';
 import upload from '../../config/multerConfig.js'; // Handles file upload
 import { createPostController, deletePost, getAllPosts, updatePost } from '../../controllers/postControllers.js'; // Controller function
-import { isAuthenticated } from '../../middleware/authMiddleware.js';
+import { isAdmin, isAuthenticated } from '../../middleware/authMiddleware.js';
 const router = express.Router();
 
 // Route for creating a post, with file upload
@@ -12,7 +12,7 @@ router.get('/', getAllPosts);
 
 router.delete('/:id', isAuthenticated, deletePost);
 
-router.put('/:id',  upload.single('image'), updatePost);
+router.put('/:id', isAuthenticated, isAdmin,  upload.single('image'), updatePost);
 
 
 

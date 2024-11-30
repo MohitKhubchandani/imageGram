@@ -1,4 +1,4 @@
-import Comment from "../schema/comments"
+import Comment from "../schema/comments.js"
 
 export const createComment = async (content, userId, onModel, commentableId) => {
     try {
@@ -17,4 +17,4 @@ export const findCommentById = async (id) => {
     } catch(error) {
         console.log(error);
     }
-}
+};

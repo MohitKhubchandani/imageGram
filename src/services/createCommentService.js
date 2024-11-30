@@ -1,5 +1,5 @@
-import { createComment, findCommentById } from "../repositories/commentRepository";
-import { findPostById } from "../repositories/postRepository";
+import { createComment, findCommentById } from "../repositories/commentRepository.js";
+import { findPostById } from "../repositories/postRepository.js";
 
 export const createCommentService = async (content, userId, onModel, commentableId) => {
     try {
@@ -22,6 +22,21 @@ export const createCommentService = async (content, userId, onModel, commentable
         
     }
 };
+
+export const findCommentByIdService = async (id) => {
+    try {
+        const comment = await findCommentById(id);
+        if (!comment) {
+            throw {
+                message: "Comment not found",
+                status: 404
+            }
+        }
+        return comment;
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 const addChildCommentToParent = async (onModel, comment, parent) => {
     try {
@@ -51,4 +66,4 @@ const fetchCommentParent = async (onModel, commentableId) => {
         return parent
     } catch (error) {
   }
-}
+};
